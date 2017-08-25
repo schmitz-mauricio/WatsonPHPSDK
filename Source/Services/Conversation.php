@@ -33,7 +33,7 @@ use WatsonSDK\Services\Conversation\MessageRequestModel;
 class Conversation extends WatsonService {
 
     const BASE_URL = 'https://gateway.watsonplatform.net/conversation/api/v1';
-    const VERSION = '2017-02-03';
+    const VERSION = '2017-05-26';
 
     private $_context = NULL;
 
@@ -95,5 +95,7 @@ class Conversation extends WatsonService {
 
         throw new InvalidParameterException();
     }
+
+
 
 }

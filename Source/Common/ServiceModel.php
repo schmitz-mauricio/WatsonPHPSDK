@@ -48,7 +48,6 @@ class ServiceModel {
             $attribute->setAccessible(true);
             $docComment = $attribute->getDocComment();
             $value = $attribute->getValue($this);
-
             if(is_null($value) && $nullable_attribute === FALSE) {
                 continue;
             }
@@ -100,6 +99,26 @@ class ServiceModel {
      */
     public function setVersion($val) {
         $this->_version = $val;
+    }
+
+    public function methodName($key, $type='set'){
+        $varNames = explode('_', $key);
+        $method = $type;
+        foreach ($varNames as $varName) {
+            $method .= ucfirst($varName);
+        }
+        return $method;
+    }
+
+    public function setOptions(array $options) {
+        $methods = get_class_methods($this);
+        foreach ($options as $key => $value) {
+            $method = $this->methodName($key);
+            if (in_array($method, $methods)) {
+                $this->$method($value);
+            }
+        }
+        return $this;
     }
 
 }
