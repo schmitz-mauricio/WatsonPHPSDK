@@ -36,11 +36,12 @@ class OutputText extends ServiceModel {
      * @data(selection_policy)
      *
      * The selection_policy of a output text.
-     * @var string
+     * @var string random/sequential
      */
     protected $selection_policy;
 
     /**
+     *
      * @return mixed
      */
     public function getValues()

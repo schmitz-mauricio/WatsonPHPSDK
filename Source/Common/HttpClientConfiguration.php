@@ -61,6 +61,8 @@ class HttpClientConfiguration {
     // Pass null to disable authentication for a request.
     private $_credentials;
 
+    private $_verify;
+
     /**
      * Constructor
      * @param $url string | NULL
@@ -73,7 +75,7 @@ class HttpClientConfiguration {
      * @param $connection_timeout integer
      * @param $credentials array | NULL
      */
-    function __construct($url = NULL, $method = self::METHOD_GET, $query = [], $data = [], $type = NULL, $headers = [], $timeout = 0, $connection_timeout = 0, $credentials = NULL) {
+    function __construct($url = NULL, $method = self::METHOD_GET, $query = [], $data = [], $type = NULL, $headers = [], $timeout = 0, $connection_timeout = 0, $credentials = NULL, $verify=true) {
 
         $this->setURL($url);
         $this->setMethod($method);
@@ -84,6 +86,7 @@ class HttpClientConfiguration {
         $this->setTimeout($timeout);
         $this->setConnectionTimeout($timeout);
         $this->setCredentials($credentials);
+        $this->setVerify($verify);
     }
 
     /**
@@ -124,6 +127,8 @@ class HttpClientConfiguration {
         if($this->getConnectionTimeout() > 0) {
             $options['connect_timeout'] = $this->getConnectionTimeout();
         }
+        // Set response timeout
+        $options['verify'] = $this->getVerify();
 
         return $options;
     }
@@ -291,5 +296,21 @@ class HttpClientConfiguration {
      */
     public function setCredentials($val) {
         $this->_credentials = $val;
+    }
+
+    /**
+     * Get verify
+     * @return array
+     */
+    private function getVerify() {
+        return $this->_verify;
+    }
+
+    /**
+     * Set verify
+     * @param $val array
+     */
+    public function setVerify($val) {
+        $this->_verify = $val;
     }
 }

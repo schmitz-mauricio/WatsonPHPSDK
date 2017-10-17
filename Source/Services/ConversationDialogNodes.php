@@ -35,14 +35,15 @@ class ConversationDialogNodes extends Conversation {
      * Get List of dialog nodes form a Conversation service by using the workspace_id
      *
      * @param $workspace_id string
+     * @param $page_limit integer
      * @param $version string
      * @return HttpResponse
      */
-    public function getAllDialogNodes($workspace_id, $version = self::VERSION) {
+    public function getAllDialogNodes($workspace_id, $page_limit=100, $version = self::VERSION) {
 
         $config = $this->initConfig();
 
-        $config->setQuery( [ 'version' => $version ] );
+        $config->setQuery( [ 'version' => $version, 'page_limit' => $page_limit ] );
         $config->setMethod(HttpClientConfiguration::METHOD_GET);
         $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
 

@@ -21,7 +21,8 @@
     "autoload": {
         "psr-4": {
             "WatsonSDK\\Common\\": "Source/Common",
-            "WatsonSDK\\Services\\": "Source/Services"
+            "WatsonSDK\\Services\\": "Source/Services",
+            "WatsonSDK\\Panel\\": "Source/Panel"
         }
     },
     

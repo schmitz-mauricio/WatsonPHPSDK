@@ -46,7 +46,7 @@ class Output extends ServiceModel {
     public function setText($text)
     {
         if(is_array($text)){
-            $oOutputText = new Intent();
+            $oOutputText = new OutputText();
             $oOutputText->setOptions($text);
             $this->text = $oOutputText;
         }else{

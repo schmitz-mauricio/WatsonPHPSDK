@@ -34,31 +34,6 @@ use WatsonSDK\Services\Conversation\Intents\Intent;
 class ConversationIntentsExamples extends Conversation {
 
     /**
-     * Get List of examples form a Conversation service by using the workspace_id
-     *
-     * @param $intent Intent
-     * @param $workspace_id string
-     * @param $version string
-     * @return HttpResponse
-     */
-    public function getAllExamples($intent, $workspace_id, $version = self::VERSION) {
-
-        $config = $this->initConfig();
-
-        $config->setQuery( [ 'version' => $version ] );
-        $config->setMethod(HttpClientConfiguration::METHOD_GET);
-        $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-
-        $url = self::BASE_URL."/workspaces/{$workspace_id}/intents/{$intent->getIntent()}/examples";
-
-        $config->setURL($url);
-
-        $response = $this->sendRequest($config);
-
-        return $response;
-    }
-
-    /**
      * Get a example from a Conversation service by using the $dialog_node and workspace_id
      *
      * @param $intent Intent
@@ -74,8 +49,34 @@ class ConversationIntentsExamples extends Conversation {
         $config->setQuery( [ 'version' => $version ] );
         $config->setMethod(HttpClientConfiguration::METHOD_GET);
         $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-
+        $example = str_replace('+', '%20', $example);
         $url = self::BASE_URL."/workspaces/{$workspace_id}/intents/{$intent->getIntent()}/examples/{$example}";
+
+        $config->setURL($url);
+
+        $response = $this->sendRequest($config);
+
+        return $response;
+    }
+
+    /**
+     * Get List of examples form a Conversation service by using the workspace_id
+     *
+     * @param $intent Intent
+     * @param $workspace_id string
+     * @param $page_limit integer
+     * @param $version string
+     * @return HttpResponse
+     */
+    public function getAllExamples($intent, $workspace_id, $page_limit=100, $version = self::VERSION) {
+
+        $config = $this->initConfig();
+
+        $config->setQuery( [ 'version' => $version, 'page_limit' => $page_limit ] );
+        $config->setMethod(HttpClientConfiguration::METHOD_GET);
+        $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
+
+        $url = self::BASE_URL."/workspaces/{$workspace_id}/intents/{$intent->getIntent()}/examples";
 
         $config->setURL($url);
 
@@ -129,7 +130,7 @@ class ConversationIntentsExamples extends Conversation {
         $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
 
         $example = (!is_null($example) ? $example : $model->getText());
-
+        $example = str_replace('+', '%20', $example);
         $url = self::BASE_URL."/workspaces/{$workspace_id}/intents/{$model->getIntent()->getIntent()}/examples/{$example}";
         $config->setURL($url);
         $response = $this->sendRequest($config);
@@ -152,7 +153,7 @@ class ConversationIntentsExamples extends Conversation {
         $config->setQuery( [ 'version' => $version ] );
         $config->setMethod(HttpClientConfiguration::METHOD_DELETE);
         $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-
+        $model->setText(str_replace('+', '%20', urlencode($model->getText())));
         $url = self::BASE_URL."/workspaces/{$workspace_id}/intents/{$model->getIntent()->getIntent()}/examples/{$model->getText()}";
         $config->setURL($url);
         $response = $this->sendRequest($config);

@@ -1,0 +1,81 @@
+<div class="form-group <?php echo isset($this->params['outputAnswerDivHidden']) && $this->params['outputAnswerDivHidden'] ? 'hidden' : '' ?>" id="outputAnswerDiv<?php echo isset($this->params['oDialogNode']) ? $this->params['oDialogNode']->getDialogNode() : '';?>">
+    <?php
+    if(isset($this->params['oDialogNode'])){
+        $oDialogNode = $this->params['oDialogNode'];
+        $selection_policy = '';
+        if(is_object($oDialogNode->getOutput())){
+
+            if(is_object($oDialogNode->getOutput()->getText())){
+                $text = $oDialogNode->getOutput()->getText()->getValues();
+                $selection_policy = $oDialogNode->getOutput()->getText()->getSelectionPolicy();
+            }else{
+                $text = array($oDialogNode->getOutput()->getText());
+            }
+        }else{
+            $text = array($oDialogNode->getOutput());
+        }
+    }else{
+        $selection_policy = 'sequential';
+
+    }
+
+    if(!isset($text) || is_null($text))
+        $text = array('');
+    ?>
+    <div class="form-group "><label for="selection_policy" class="not-empty required"><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="Se você adicionar várias resposta pode definir se quer que responda randomicamente ou sequencial"></i> Modo de resposta</label>
+        <select name="selection_policy" id="selection_policy" class="form-control " placeholder="" style="" required="required" title="" autofocus="autofucus">
+            <option value="sequential" <?php echo $selection_policy == 'sequential' ? 'selected' : '';?>>Sequêncial</option>
+            <option value="random" <?php echo $selection_policy == 'random' ? 'selected' : '';?>>Randômico</option>
+        </select>
+    </div>
+
+    <label for="answer" class="optional"><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="Informe o texto que deseja enviar ao usuário"></i> Resposta</label>
+    <?php
+    foreach ($text as $value) {
+        ?>
+        <div class="form-group toClone answerToCopy" id="answerToCopy<?php echo isset($this->params['oDialogNode']) ? $this->params['oDialogNode']->getDialogNode() : '';?>">
+            <textarea name="answer[]" id="answer" class="form-control classInput summernote textAreaSemRedimensionamento" placeholder="" style="" rows="10" cols="80"><?php echo $value;?></textarea>
+            <a href="#" class="trash-example summernoteTrash" data-toggle="tooltip" data-placement="top" data-original-title="Remover resposta"><span class="glyphicon glyphicon-trash"></span></a>
+        </div>
+        <?php
+    }
+    ?>
+    <div id="answerCopyDiv<?php echo isset($this->params['oDialogNode']) ? $this->params['oDialogNode']->getDialogNode() : '';?>"></div>
+
+    <div class="form-group">
+        <button type="button" class="btn btn-info copybutton" data-copy-target="#answerToCopy<?php echo isset($this->params['oDialogNode']) ? $this->params['oDialogNode']->getDialogNode() : '';?>" data-copy-to="#answerCopyDiv<?php echo isset($this->params['oDialogNode']) ? $this->params['oDialogNode']->getDialogNode() : '';?>" data-copy-ignore=".note-editor" data-copy-callback="Watson.summernote()"><i class="fa fa-plus"></i> Adicionar</button>
+    </div>
+</div>
+
+<div class="form-group <?php echo isset($this->params['questionDivHidden']) && $this->params['questionDivHidden'] ? 'hidden' : '' ?>" id="questionDiv<?php echo isset($this->params['oDialogNode']) ? $this->params['oDialogNode']->getDialogNode() : '';?>">
+    <?php
+    if( isset($this->params['oDialogNode']) && !is_null($this->params['oDialogNode']->getOutput()) && count($this->params['oDialogNode']->getChilds())) {
+    ?>
+        <div class="form-group">
+    <?php
+    foreach ($text as $value) {
+    ?>
+            <div class="form-group toClone">
+                <label for="question" class="not-empty required"><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="Descreva a pergunta a ser feita ao usuário"></i> Pergunta</label>
+                <textarea name="question" id="pergunta" class="form-control summernote textAreaSemRedimensionamento" placeholder="" style="" required="required" title=""><?php echo $value;?></textarea>
+            </div>
+    <?php
+    }
+    ?>
+        </div>
+    <?php
+    }else{
+    ?>
+    <div class="form-group ">
+        <label for="question_title" class="not-empty required"><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="Informe um título breve do porque da pergunta"></i> Título pergunta</label>
+        <input name="question_title" id="question_title" value="" class="form-control" placeholder="" style="" required="required" title="" type="text">
+    </div>
+    <div class="form-group ">
+        <label for="question" class="not-empty required"><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="Descreva a pergunta a ser feita ao usuário"></i> Pergunta</label>
+        <textarea name="question" id="question" class="form-control summernote textAreaSemRedimensionamento" placeholder="" style="" required="required" title=""></textarea>
+    </div>
+    <small class="text-info"><i class="fa fa-exclamation"></i> Clique em salvar para adicionar as condiçoes de acordo com a resposta a essa pergunta</small>
+    <?php
+    }
+    ?>
+</div>

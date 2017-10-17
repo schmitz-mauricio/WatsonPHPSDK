@@ -18,6 +18,7 @@
 namespace WatsonSDK\Services\Conversation\DialogNodes;
 
 use WatsonSDK\Common\ServiceModel;
+use WatsonSDK\Services\Conversation\Intents\Intent;
 
 /**
  * DialogNode model
@@ -133,13 +134,14 @@ class DialogNode extends ServiceModel {
     protected $previous_sibling;
 
     /**
-     * @data(fixed)
-     *
-     * The fixed flag of a dialog node.
-     *
-     * @var string
+     * @var array
      */
-    protected $fixed;
+    protected $childs;
+
+    /**
+     * @var Intent
+     */
+    protected $intent;
 
     /**
      * @return mixed
@@ -348,21 +350,61 @@ class DialogNode extends ServiceModel {
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getFixed()
+    public function getChilds()
     {
-        return $this->fixed;
+        return $this->childs;
     }
 
     /**
-     * @param string $fixed
+     * @param array $childs
      */
-    public function setFixed($fixed)
+    public function setChilds($childs)
     {
-        $this->fixed = $fixed;
+        $this->childs = $childs;
+    }
+
+    /**
+     * @return Intent
+     */
+    public function getIntent()
+    {
+        return $this->intent;
+    }
+
+    /**
+     * @param Intent $intent
+     */
+    public function setIntent($intent)
+    {
+        $this->intent = $intent;
     }
 
 
+    /**
+     * Seta o usuário que alterou o nó
+     * @param $user
+     *
+     */
+    public function setUpdatedUser($user)
+    {
+        $metadata = $this->getMetadata();
+        if(is_null($metadata)){
+            $metadata = array();
+        }
 
+        if(!isset($metadata['update_log']))
+            $metadata['update_log'] = array();
+
+        $hoje = new \DateTime();
+        $update = array(
+            'user' => $user,
+            'date' => $hoje->format('Y-m-d H:i:s')
+        );
+
+        array_push($metadata['update_log'], $update);
+
+        $this->setMetadata($metadata);
+    }
 }

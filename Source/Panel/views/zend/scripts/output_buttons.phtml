@@ -1,0 +1,14 @@
+<?php
+    if(isset($this->params['oDialogNode']) && count($this->params['oDialogNode']->getChilds())){
+
+    }else{
+?>
+<div class="form-group">
+    <div class="btn-group">
+        <button type="button" class="btn btn-info showHide enableDisableButton" data-enable-target="#submit<?php echo isset($this->params['oDialogNode']) ? $this->params['oDialogNode']->getDialogNode() : (isset($this->params['buttomName'])  ? $this->params['buttomName'] : '');?>" data-show="#outputAnswerDiv<?php echo isset($this->params['oDialogNode']) ? $this->params['oDialogNode']->getDialogNode() : '';?>" data-hide="#questionDiv<?php echo isset($this->params['oDialogNode']) ? $this->params['oDialogNode']->getDialogNode() : '';?>" data-toggle="tooltip" data-placement="top" data-original-title="Adicionar uma resposta para essa condição">Adicionar resposta</button>
+        <button type="button" class="btn btn-success showHide enableDisableButton" data-enable-target="#submit<?php echo isset($this->params['oDialogNode']) ? $this->params['oDialogNode']->getDialogNode() : (isset($this->params['buttomName']) ?  $this->params['buttomName'] : '');?>" data-show="#questionDiv<?php echo isset($this->params['oDialogNode']) ? $this->params['oDialogNode']->getDialogNode() : '';?>" data-hide="#outputAnswerDiv<?php echo isset($this->params['oDialogNode']) ? $this->params['oDialogNode']->getDialogNode() : '';?>" data-toggle="tooltip" data-placement="top" data-original-title="Adicionar uma pergunta ao usuário">Adicionar pergunta ao usuário</button>
+    </div>
+</div>
+<?php
+    }
+?>
