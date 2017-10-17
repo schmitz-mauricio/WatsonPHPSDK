@@ -1,5 +1,5 @@
 {
-    "name": "CognitiveBuild/WatsonPHPSDK",
+    "name": "mauricioschmitz/WatsonPHPSDK",
     "description": "PHP SDK for Watson so that the developer could apply Watson quickly in PHP applications",
     "keywords": [
         "ai",
@@ -9,8 +9,8 @@
             ],
     "authors": [
         {
-            "name": "caopeng",
-            "email": "dammer_66@163.com"
+            "name": "Mauricio Schmitz",
+            "email": "contato@mauricioschmitz.com.br"
         }
     ],
     "license":"Apache-2.0",
