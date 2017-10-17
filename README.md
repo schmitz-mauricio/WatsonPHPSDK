@@ -13,7 +13,7 @@ Installing [Composer](http://getcomposer.org) will be easier to manage dependenc
 Run the Composer command to install the latest version of the Watson PHP SDK:
 
 ```shell
-composer require cognitivebuild/watsonphpsdk:dev-master
+composer require mauricioschmitz/watsonphpsdk:dev-master
 ```
 
 If the Watson PHP SDK is downloaded from GitHub already, run the update command:
