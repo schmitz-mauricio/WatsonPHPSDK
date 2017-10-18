@@ -72,12 +72,13 @@ class Panel {
     {
 //        $cache = \Zend_Registry::get('Cache');
 //        $cache->remove('WatsonDialogNodes');
+        $cacheData = null;
         if($this->framework == 'zend'){
             $cache = \Zend_Registry::get('Cache');
             $cacheData = $cache->load('WatsonDialogNodes');
         }
 
-        if($cacheData)
+        if(!is_null($cacheData))
             return $cacheData;
 
         //Busca a lista
