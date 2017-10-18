@@ -61,25 +61,25 @@ Watson.enableDisableButton = function () {
     });
 };
 
-Watson.summernote = function(){
-    $('.summernote').summernote({
-        lang: 'pt-BR',
-        height: 200,
-        placeholder: '',
-        hint: {
-            mentions: [],
-            match: /\B%(\w*)$/,
-            search: function (keyword, callback) {
-                callback($.grep(this.mentions, function (item) {
-                    return item.indexOf(keyword) == 0;
-                }));
-            },
-            content: function (item) {
-                return '%' + item + '%';
-            }
-        }
-    });
-};
+// Watson.summernote = function(){
+//     $('.summernote').summernote({
+//         lang: 'pt-BR',
+//         height: 200,
+//         placeholder: '',
+//         hint: {
+//             mentions: [],
+//             match: /\B%(\w*)$/,
+//             search: function (keyword, callback) {
+//                 callback($.grep(this.mentions, function (item) {
+//                     return item.indexOf(keyword) == 0;
+//                 }));
+//             },
+//             content: function (item) {
+//                 return '%' + item + '%';
+//             }
+//         }
+//     });
+// };
 
 Watson.callClick = function(){
     $('.callClick').each(function(i, el){
