@@ -1,3 +1,5 @@
+var jstree = require('jstree/dist/jstree.min');
+
 var WatsonPanel = {
     cloneObject() {
 
