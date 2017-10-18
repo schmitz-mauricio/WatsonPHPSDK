@@ -116,9 +116,6 @@ class Panel {
     public function treeView($url)
     {
         $nodes = $this->dialogNodesListAll();
-        foreach($nodes['noparent'] as $node){
-            $this->deleteNode($node);
-        }
         return '<div id="treeview">' . $this->doOutputTree($nodes['noparent'], $nodes['all'], $url) . '</div>';
     }
 
