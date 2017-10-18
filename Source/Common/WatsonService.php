@@ -62,10 +62,7 @@ class WatsonService {
             $config->addHeader('X-Watson-Learning-Opt-Out', $this->_xWatsonLearningOptOut);
         }
 
-        if(getenv('APPLICATION_ENV') != 'localhost'){
-            $config->setVerify(false);
-        }
-
+        $config->setVerify(true);
 
         return $config;
     }
