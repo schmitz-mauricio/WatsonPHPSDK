@@ -1,5 +1,5 @@
 {
-    "name": "mauricioschmitz/watson-php-sdk",
+    "name": "himaker/watson-php-sdk",
     "description": "PHP SDK for Watson so that the developer could apply Watson quickly in PHP applications",
     "keywords": [
         "ai",
