@@ -1,5 +1,5 @@
 var jstree = require('./jstree/dist/jstree.min');
-var summernote = require('./summernote/dist/summernote.min');
+var summernote = require('summernote');
 
 var WatsonPanel = {
     cloneObject() {

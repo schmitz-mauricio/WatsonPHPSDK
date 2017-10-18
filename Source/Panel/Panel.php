@@ -17,6 +17,7 @@
 
 namespace WatsonSDK\Panel;
 
+use Illuminate\Support\Facades\Cache;
 use WatsonSDK\Common\WatsonCredential;
 use WatsonSDK\Services\Conversation\DialogNodes\DialogNode;
 use WatsonSDK\Services\Conversation\DialogNodes\Output;
@@ -42,6 +43,7 @@ class Panel {
 
     public $aIntents;
 
+    public $nodes = array();
     public $nodesPrinted = array();
 
     public $framework = 'zend';
@@ -76,9 +78,12 @@ class Panel {
         if($this->framework == 'zend'){
             $cache = \Zend_Registry::get('Cache');
             $cacheData = $cache->load('WatsonDialogNodes');
+
+        }else if($this->framework == 'laravel'){
+            $cacheData = Cache::store('file')->get('WatsonDialogNodes');
         }
 
-        if(!is_null($cacheData))
+        if(!is_null($cacheData) && $cacheData)
             return $cacheData;
 
         //Busca a lista
@@ -108,7 +113,13 @@ class Panel {
 
         if($this->framework == 'zend'){
             $cache->save($lista, 'WatsonDialogNodes');
+
+        }else if($this->framework == 'laravel'){
+            Cache::store('file')->put('WatsonDialogNodes', $lista, (60*24)*1); //1 Dias
         }
+
+        $this->setNodes($lista);
+
         return $lista;
 
     }
@@ -595,6 +606,9 @@ class Panel {
         if($this->framework == 'zend'){
             $cache = \Zend_Registry::get('Cache');
             $cache->remove('WatsonDialogNodes');
+
+        }else if($this->framework =='laravel'){
+            Cache::forget('WatsonDialogNodes');
         }
     }
 
@@ -692,6 +706,40 @@ class Panel {
             }
         }
     }
+
+    /**
+     * @return array
+     */
+    public function getNodes()
+    {
+        return $this->nodes;
+    }
+
+    /**
+     * @param array $nodes
+     */
+    public function setNodes($nodes)
+    {
+        $this->nodes = $nodes;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNodesPrinted()
+    {
+        return $this->nodesPrinted;
+    }
+
+    /**
+     * @param array $nodesPrinted
+     */
+    public function setNodesPrinted($nodesPrinted)
+    {
+        $this->nodesPrinted = $nodesPrinted;
+    }
+
+
 
     /**
      * Method return a array of intents
