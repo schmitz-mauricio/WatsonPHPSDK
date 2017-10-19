@@ -1,7 +1,7 @@
 <div class="col-lg-12">
     <p class="m-b-lg">
-        <a href="{{ route('admin.dialog.create') }}" class="btn btn-success"><i class="fa fa-plus"></i> {{ __('Adicionar diálogo') }} </a>
-        <a href="{{ route('admin.dialog.index', ['action' => 'refresh']) }}" class="btn btn-info"><i class="fa fa-refresh"></i> {{ __('Atualizar') }}</a>
+        <a href="{{ route( $prefix . 'create') }}" class="btn btn-success"><i class="fa fa-plus"></i> {{ __('Adicionar diálogo') }} </a>
+        <a href="{{ route( $prefix . 'index', ['action' => 'refresh']) }}" class="btn btn-info"><i class="fa fa-refresh"></i> {{ __('Atualizar') }}</a>
     </p>
     <div class="dd" id="treeview">
 
@@ -39,31 +39,3 @@
         ?>
     </div>
 </div>
-@section('styles')
-    <style>
-        .jstree-default .jstree-node {
-            line-height: 50px !important;
-        }
-
-        .jstree-default .jstree-clicked, .jstree-default  .jstree-hovered {
-            background: none;
-            border-radius: 0;
-            box-shadow: none;
-        }
-
-        .list-group {
-            min-width: 300px !important;
-        }
-
-        span.list-group-item:hover {
-            color: inherit;
-            background-color: rgba(110, 115, 120, 0.075);
-        }
-
-        @media (max-width: 768px) {
-            .jstree-default .jstree-node {
-                line-height: 80px !important;
-            }
-        }
-    </style>
-@stop

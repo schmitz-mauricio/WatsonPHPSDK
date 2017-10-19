@@ -46,30 +46,28 @@ class PanelLaravel
         $params = $this->getRequest()->all();
         if(isset($params['action'])){
             $action = $params['action'];
-            return call_user_func_array([$this, $action], ['view' => $view, 'panel' => $data['panel']]);
+            return call_user_func_array([$this, $action], [$view, $data]);
         }
         return $this->viewFactory->make($view, $data, $mergeData);
     }
 
     /**
-     * Monta a treeview
+     * Atualiza o cache
      * @param String $view
-     * @param \WatsonSDK\Panel\Panel $panel
+     * @param \WatsonSDK\Panel\Panel $params
      */
-    public function treeview($view, $panel)
+    public function refresh($view, $params)
     {
-        return $this->viewFactory->make($view, ['panel' => $panel]);
+        $panel->clearCache();
+        return $this->renderView($view, $params);
     }
 
     /**
-     * Atualiza o cache
-     * @param String $view
-     * @param \WatsonSDK\Panel\Panel $panel
+     * Render a view
      */
-    public function refresh($view, $panel)
+    public function renderView($view, $params)
     {
-        $panel->clearCache();
-        return $this->viewFactory->make($view, ['panel' => $panel]);
+        return $this->viewFactory->make($view, $params);
     }
 
     /**

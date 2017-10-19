@@ -1,0 +1,48 @@
+@import "../../../../vendor/himaker/watson-php-sdk/Assets/jstree/dist/themes/default/style.css";
+
+.jstree-default .jstree-node {
+  line-height: 50px !important;
+}
+
+.jstree-default .jstree-clicked, .jstree-default  .jstree-hovered {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.list-group {
+  min-width: 300px !important;
+}
+
+span.list-group-item:hover {
+  color: inherit;
+  background-color: rgba(110, 115, 120, 0.075);
+}
+
+@media (max-width: 768px) {
+  .jstree-default .jstree-node {
+    line-height: 80px !important;
+  }
+}
+
+.btn-group {
+  display: inline-flex !important;
+  white-space: nowrap;
+}
+
+.trash-example{
+  position: relative;
+  float: right;
+  margin-top: -25px;
+  margin-right: 10px;
+  display: none;
+}
+
+.examplesToCopy.form-group:hover:not(.toClone) .trash-example{
+  display: block;
+}
+
+.answerToCopy.form-group:hover:not(.toClone) .trash-example.summernoteTrash{
+  display: block;
+  margin-top: -260px;
+}

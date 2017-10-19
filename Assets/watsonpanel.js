@@ -1,13 +1,13 @@
 var jstree = require('./jstree/dist/jstree.min');
-var summernote = require('summernote');
+
 
 var WatsonPanel = {
     cloneObject() {
 
         $('.copybutton').each(function (i, el) {
 
-            $(el).on('click', function () {
-
+            $(el).on('click', function (event) {
+                event.preventDefault();
                 var target = $(el).data('copy-target');
                 var to = $(el).data('copy-to');
                 var ignore = $(el).data('copy-ignore');
@@ -30,27 +30,37 @@ var WatsonPanel = {
 
     removeObject () {
         $('.trash-example').each(function(i, el) {
-            $(el).on('click', function(){
+            $(el).on('click', function(event){
+                event.preventDefault();
                 $(this).parent().remove();
             });
 
         });
+        return false;
     },
     showDivAndHideAnother () {
         $('.showHide').each(function(i, el){
-            $(el).on('click', function(){
+            $(el).on('click', function(event){
+                event.preventDefault();
                 var hide = $(el).data('hide');
                 var show = $(el).data('show');
+                var callback = $(el).data('callback');
 
                 $(hide).addClass('hidden');
                 $(show).removeClass('hidden');
+
+                var x = eval(callback)
+                if (typeof x == 'function') {
+                    setTimeout(function(){x()},1000);
+                }
             });
         });
     },
     enableDisableButton () {
         $('.enableDisableButton').each(function(i, el) {
 
-            $(el).on('click', function(){
+            $(el).on('click', function(event){
+                event.preventDefault();
                 var enable = $(this).data('enable-target');
                 var disable = $(this).data('disable-target');
                 $(enable).removeAttr('disabled');
@@ -64,6 +74,7 @@ var WatsonPanel = {
             lang: 'pt-BR',
             height: 200,
             placeholder: '',
+            // tooltip: false,
             hint: {
                 mentions: [],
                 match: /\B%(\w*)$/,
@@ -112,6 +123,16 @@ var WatsonPanel = {
         this.enableDisableButton();
         this.summernote();
         this.callClick();
+        this.tree();
+
+        $('[data-toggle="popover"][data-timeout]').on('shown.bs.popover', function() {
+            this_popover = $(this);
+            setTimeout(function () {
+                this_popover.popover('hide');
+            }, $(this).data("timeout"));
+        });
+
+
     }
 };
 
