@@ -39,7 +39,7 @@
     <div id="answerCopyDiv{{ isset($oDialogNode) ? $oDialogNode->getDialogNode() : ''  }}"></div>
 
     <div class="form-group">
-        <button type="button" class="btn btn-info copybutton" data-copy-target="#answerToCopy{{ isset($oDialogNode) ? $oDialogNode->getDialogNode() : '' }}" data-copy-to="#answerCopyDiv{{ isset($oDialogNode) ? $oDialogNode->getDialogNode() : '' }}" data-copy-ignore=".note-editor" data-copy-callback="Watson.summernote()"><i class="fa fa-plus"></i> Adicionar</button>
+        <button type="button" class="btn btn-info copybutton" data-copy-target="#answerToCopy{{ isset($oDialogNode) ? $oDialogNode->getDialogNode() : '' }}" data-copy-to="#answerCopyDiv{{ isset($oDialogNode) ? $oDialogNode->getDialogNode() : '' }}" data-copy-ignore=".note-editor" data-copy-callback="WatsonPanel.summernote()"><i class="fa fa-plus"></i> Adicionar</button>
     </div>
 </div>
 

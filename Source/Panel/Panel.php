@@ -321,10 +321,13 @@ class Panel {
         if($this->framework == 'zend'){
             $cache = \Zend_Registry::get('Cache');
             $cacheData = $cache->load('WatsonDialogNodes');
+
+        }elseif($this->framework == 'laravel'){
+            $cacheData = \Illuminate\Support\Facades\Cache::store('file')->get('WatsonDialogNodes');
         }
 
         $aDialogNodesList = array();
-        if($cacheData){
+        if(isset($cacheData) && $cacheData){
             $aDialogNodesList = $cacheData['all'];
 
         }else{
