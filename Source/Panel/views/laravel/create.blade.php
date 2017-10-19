@@ -5,6 +5,7 @@
         </div>
 
         <form id="watsonpanel" name="watsonpanel" enctype="application/x-www-form-urlencoded" class="validate" action="{{ route( $prefix . 'store') }}" method="post" novalidate="novalidate">
+            {{ csrf_field() }}
             <div class="panel panel-body">
                 @include('panelLaravel::laravel.shared.intent')
 

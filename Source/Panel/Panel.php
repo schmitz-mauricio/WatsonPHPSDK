@@ -17,7 +17,6 @@
 
 namespace WatsonSDK\Panel;
 
-use Illuminate\Support\Facades\Cache;
 use WatsonSDK\Common\WatsonCredential;
 use WatsonSDK\Services\Conversation\DialogNodes\DialogNode;
 use WatsonSDK\Services\Conversation\DialogNodes\Output;
@@ -80,7 +79,7 @@ class Panel {
             $cacheData = $cache->load('WatsonDialogNodes');
 
         }else if($this->framework == 'laravel'){
-            $cacheData = Cache::store('file')->get('WatsonDialogNodes');
+            $cacheData = \Illuminate\Support\Facades\Cache::store('file')->get('WatsonDialogNodes');
         }
 
         if(!is_null($cacheData) && $cacheData)
@@ -115,7 +114,7 @@ class Panel {
             $cache->save($lista, 'WatsonDialogNodes');
 
         }else if($this->framework == 'laravel'){
-            Cache::store('file')->put('WatsonDialogNodes', $lista, (60*24)*1); //1 Dias
+            \Illuminate\Support\Facades\Cache::store('file')->put('WatsonDialogNodes', $lista, (60*24)*1); //1 Dias
         }
 
         $this->setNodes($lista);
@@ -284,13 +283,17 @@ class Panel {
                 $this->dialogNodesService->deleteDialogNode($oDialogNodeChild, $this->workspace_id);
         }
 
-        if($this->framework == 'zend'){
-            if(!$erro){
+        if(!$erro){
+            if($this->framework == 'zend'){
                 $cache = \Zend_Registry::get('Cache');
                 $cache->remove('WatsonDialogNodes');
+
+            }elseif($this->framework){
+                \Illuminate\Support\Facades\Cache::forget('WatsonDialogNodes');
             }
+
         }
-        if($data['parent'] != ''){
+        if(isset($data['parent']) && $data['parent'] != ''){
             return array('result' => !$erro, 'intent' => $data['parent']);
         }else{
             return array('result' => !$erro, 'intent' => $oIntent->getIntent());
@@ -608,7 +611,7 @@ class Panel {
             $cache->remove('WatsonDialogNodes');
 
         }else if($this->framework =='laravel'){
-            Cache::forget('WatsonDialogNodes');
+            \Illuminate\Support\Facades\Cache::forget('WatsonDialogNodes');
         }
     }
 
