@@ -1,3 +1,9 @@
+<?php
+if(isset($novo) && $novo){
+    $old = $oDialogNode;
+    unset($oDialogNode);
+}
+?>
 @if(isset($oDialogNode) && count($oDialogNode->getChilds()))
 
 @else
@@ -8,3 +14,8 @@
     </div>
 </div>
 @endif
+<?php
+if(isset($novo) && $novo){
+    $oDialogNode = $old;
+}
+?>

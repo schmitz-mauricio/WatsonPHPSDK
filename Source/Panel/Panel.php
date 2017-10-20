@@ -425,8 +425,11 @@ class Panel {
             $editDialogNode = $this->dialogNodesService->editDialogNode($oDialogNode, $this->workspace_id, $data['intent'])->getContent(true);
             if($editDialogNode){
 
-                if($data['question'] != '')
+                if(isset($data['question']) && $data['question'] != '')
                 {
+                    if(!isset($data['question_title']))
+                        $data['question_title'] = '';
+
                     $oIntentChild = new Intent();
                     $oIntentChild->setIntent($this->createName($data['intent_description']) . '_' . $this->createName($data['question_title']));
                     $oIntentChild->setDescription($data['question_title']);
@@ -526,10 +529,12 @@ class Panel {
                 $this->dialogNodesService->deleteDialogNode($oDialogNode, $this->workspace_id);
         }
 
-        if($this->framework == 'zend'){
-            if(!$erro){
+        if(!$erro){
+            if($this->framework == 'zend'){
                 $cache = \Zend_Registry::get('Cache');
                 $cache->remove('WatsonDialogNodes');
+            }else if($this->framework =='laravel'){
+                \Illuminate\Support\Facades\Cache::forget('WatsonDialogNodes');
             }
         }
         return array('result' => !$erro, 'intent' => $data['parent']);
@@ -548,10 +553,12 @@ class Panel {
         if($this->framework == 'zend'){
             $cache = \Zend_Registry::get('Cache');
             $cacheData = $cache->load('WatsonDialogNodes');
+        }elseif($this->framework == 'laravel'){
+            $cacheData = \Illuminate\Support\Facades\Cache::store('file')->get('WatsonDialogNodes');
         }
 
         $aDialogNodesList = array();
-        if($cacheData){
+        if(isset($cacheData) && $cacheData){
             $aDialogNodesList = $cacheData['all'];
 
         }else {
@@ -604,6 +611,8 @@ class Panel {
         if($this->framework == 'zend'){
             $cache = \Zend_Registry::get('Cache');
             $cache->remove('WatsonDialogNodes');
+        }else if($this->framework =='laravel'){
+            \Illuminate\Support\Facades\Cache::forget('WatsonDialogNodes');
         }
     }
 

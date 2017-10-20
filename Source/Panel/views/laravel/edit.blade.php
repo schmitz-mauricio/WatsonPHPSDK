@@ -21,6 +21,8 @@
     ?>
     <div class="col-md-{{ ($oDialogNode->getParent() != '' ? '11' : '12') }}">
         <form id="watsonpanel" name="watsonpanel" enctype="application/x-www-form-urlencoded" class="validate" action="{{ route( $prefix . 'update', ['id' => $oDialogNode->getDialogNode()]) }}" method="post" novalidate="novalidate">
+            {{ csrf_field() }}
+            <input type="hidden" name="_method" value="PUT"/>
             <div class="panel panel-body">
                 @include('panelLaravel::laravel.shared.intent', ['oIntent' => $oIntent, 'aExamples' => $examplesList])
             </div>
@@ -31,11 +33,7 @@
             </div>
             <div class="panel panel-body">
                 <button name="submit" id="submit" type="submit" class="btn btn-primary  waves-effect" style="" md-ink-ripple="">Salvar</button>
-                <a href="#" data-href="{{ route( $prefix . 'destroy', ['id' => (!is_null($oIntent) ? $oIntent->getIntent() : $oDialogNode->getDialogNode())]) }}" class="btn btn-danger"
-                   data-toggle="confirmation" data-placement="left">
-                    <i class="fa fa-times fa-lg"></i>
-                    <span class="hidden-xs" style="display inline-block; width: 55px;"> Excluir</span>
-                </a>
+                <a  class="btn btn-danger"  onclick="Scripts.confirm('{{ route( $prefix . 'destroy', ['id' => $oDialogNode->getDialogNode()]) }}', ['{{ __('que deseja excluir esse diálogo?') }}', '{{ __('Excluído') }}', '{{ __('Diálogo excluído com sucesso!') }}'], 'DELETE', 'location.href=\'{{ route( $prefix . 'index') }}\';')"><i class="fa fa-times"></i> {{ __('Excluir') }} </a>
             </div>
             <div class="panel panel-body">
                 <?php

@@ -1,3 +1,9 @@
+<?php
+if(isset($novo) && $novo){
+    $old = $oDialogNode;
+    unset($oDialogNode);
+}
+?>
 <div class="form-group {{ isset($outputAnswerDivHidden) && $outputAnswerDivHidden ? 'hidden' : ''  }} " id="outputAnswerDiv{{ isset($oDialogNode) ? $oDialogNode->getDialogNode() : '' }}">
     <?php
     if(isset($oDialogNode)){
@@ -46,7 +52,7 @@
 <div class="form-group {{ isset($questionDivHidden) && $questionDivHidden ? 'hidden' : '' }}" id="questionDiv{{ isset($oDialogNode) ? $oDialogNode->getDialogNode() : '' }}">
     @if( isset($oDialogNode) && !is_null($oDialogNode->getOutput()) && count($oDialogNode->getChilds()))
     <div class="form-group">
-        @foreach ($text as $value) {
+        @foreach ($text as $value)
         <div class="form-group toClone">
             <label for="question" class="not-empty required"><i class="fa fa-question-circle" data-toggle="popover" data-placement="right" data-content="Descreva a pergunta a ser feita ao usuário" data-timeout="3000"></i> Pergunta</label>
             <textarea name="question" id="pergunta" class="form-control summernote textAreaSemRedimensionamento" placeholder="" style="" required="required" title="">{{ $value }}</textarea>
@@ -65,3 +71,8 @@
     <small class="text-info"><i class="fa fa-exclamation"></i> Clique em salvar para adicionar as condiçoes de acordo com a resposta a essa pergunta</small>
     @endif
 </div>
+<?php
+if(isset($novo) && $novo){
+    $oDialogNode = $old;
+}
+?>
