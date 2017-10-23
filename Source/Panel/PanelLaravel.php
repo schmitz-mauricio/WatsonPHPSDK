@@ -58,7 +58,7 @@ class PanelLaravel
      */
     public function refresh($view, $params)
     {
-        $panel->clearCache();
+        $params['panel']->clearCache();
         return $this->renderView($view, $params);
     }
 
