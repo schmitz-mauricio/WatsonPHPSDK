@@ -33,7 +33,7 @@
             </div>
             <div class="panel panel-body">
                 <button name="submit" id="submit" type="submit" class="btn btn-primary  waves-effect" style="" md-ink-ripple="">Salvar</button>
-                <a  class="btn btn-danger"  onclick="Scripts.confirm('{{ route( $prefix . 'destroy', ['id' => $oDialogNode->getDialogNode()]) }}', ['{{ __('que deseja excluir esse diálogo?') }}', '{{ __('Excluído') }}', '{{ __('Diálogo excluído com sucesso!') }}'], 'DELETE', 'location.href=\'{{ route( $prefix . 'index') }}\';')"><i class="fa fa-times"></i> {{ __('Excluir') }} </a>
+                @can( $permissionPrefix . '-destroy')<a  class="btn btn-danger"  onclick="Scripts.confirm('{{ route( $prefix . 'destroy', ['id' => $oDialogNode->getDialogNode()]) }}', ['{{ __('que deseja excluir esse diálogo?') }}', '{{ __('Excluído') }}', '{{ __('Diálogo excluído com sucesso!') }}'], 'DELETE', 'location.href=\'{{ route( $prefix . 'index') }}\';')"><i class="fa fa-times"></i> {{ __('Excluir') }} </a>@endcan
             </div>
             <div class="panel panel-body">
                 <?php

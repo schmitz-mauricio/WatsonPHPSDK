@@ -26,7 +26,7 @@
                 @include('panelLaravel::laravel.shared.output',['outputAnswerDivHidden' => true, 'oDialogNode' => $oDialogNode])
 
                 <button name="submit" id="submit" type="submit" class="btn btn-primary  waves-effect" style="" md-ink-ripple="">Salvar</button>
-                <a  class="btn btn-danger"  onclick="Scripts.confirm('{{ route( $prefix . 'destroy', ['id' => $oDialogNode->getDialogNode()]) }}', ['{{ __('que deseja excluir esse diálogo?') }}', '{{ __('Excluído') }}', '{{ __('Diálogo excluído com sucesso!') }}'], 'DELETE', 'location.href=\'{{ route( $prefix . 'index') }}\';')"><i class="fa fa-times"></i> {{ __('Excluir') }} </a>
+                @can( $permissionPrefix . '-destroy')<a  class="btn btn-danger"  onclick="Scripts.confirm('{{ route( $prefix . 'destroy', ['id' => $oDialogNode->getDialogNode()]) }}', ['{{ __('que deseja excluir esse diálogo?') }}', '{{ __('Excluído') }}', '{{ __('Diálogo excluído com sucesso!') }}'], 'DELETE', 'location.href=\'{{ route( $prefix . 'index') }}\';')"><i class="fa fa-times"></i> {{ __('Excluir') }} </a>@endcan
             </div>
 
             <div class="panel panel-body">
@@ -97,7 +97,7 @@
 
                         <button name="submit" id="submit{{ $child->getDialogNode() }}" type="submit" class="btn btn-primary  waves-effect" style="" md-ink-ripple="">Salvar</button>
                         <a href="#" class="showHide btn btn-default" data-hide="#{{ $child->getDialogNode() }}" data-show="#btNode{{ $child->getDialogNode() }}"  data-toggle="tooltip" data-placement="right" data-original-title="Informações não salvas serão perdidas!">Fechar</a>
-                        <a  class="btn btn-danger"  onclick="Scripts.confirm('{{ route( $prefix . 'destroy', ['id' => $child->getDialogNode()]) }}', ['{{ __('que deseja excluir esse diálogo?') }}', '{{ __('Excluído') }}', '{{ __('Diálogo excluído com sucesso!') }}'], 'DELETE', 'location.href=\'{{ route( $prefix . 'edit', ['id' => $oDialogNode->getDialogNode()]) }}\';')"><i class="fa fa-times"></i> {{ __('Excluir') }} </a>
+                        @can( $permissionPrefix . '-destroy')<a  class="btn btn-danger"  onclick="Scripts.confirm('{{ route( $prefix . 'destroy', ['id' => $child->getDialogNode()]) }}', ['{{ __('que deseja excluir esse diálogo?') }}', '{{ __('Excluído') }}', '{{ __('Diálogo excluído com sucesso!') }}'], 'DELETE', 'location.href=\'{{ route( $prefix . 'edit', ['id' => $oDialogNode->getDialogNode()]) }}\';')"><i class="fa fa-times"></i> {{ __('Excluir') }} </a>@endcan
                     </form>
                 </div>
             </div>

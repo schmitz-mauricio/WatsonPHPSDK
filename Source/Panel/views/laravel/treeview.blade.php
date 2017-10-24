@@ -1,6 +1,8 @@
 <div class="col-lg-12">
     <p class="m-b-lg">
+        @can( $permissionPrefix . '-create')
         <a href="{{ route( $prefix . 'create') }}" class="btn btn-success"><i class="fa fa-plus"></i> {{ __('Adicionar diálogo') }} </a>
+        @endcan
         <a href="{{ route( $prefix . 'index', ['action' => 'refresh']) }}" class="btn btn-info"><i class="fa fa-refresh"></i> {{ __('Atualizar') }}</a>
     </p>
     <div class="dd" id="treeview">
