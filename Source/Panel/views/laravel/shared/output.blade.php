@@ -25,7 +25,7 @@ if(isset($novo) && $novo){
 
     }
 
-    if(!isset($text) || is_null($text))
+    if(!isset($text) || is_null($text) || empty($text))
         $text = array('');
     ?>
     <div class="form-group "><label for="selection_policy" class="not-empty required"><i class="fa fa-question-circle" data-toggle="popover" data-placement="right" data-content="Se você adicionar várias resposta pode definir se quer que responda randomicamente ou sequencial" data-timeout="3000"></i> Modo de resposta</label>
