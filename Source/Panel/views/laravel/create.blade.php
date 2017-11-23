@@ -11,12 +11,13 @@
 
             </div>
             <div class="panel panel-body">
-                @include('panelLaravel::laravel.shared.output-buttons')
+                {{--@include('panelLaravel::laravel.shared.output-buttons')--}}
 
-                @include('panelLaravel::laravel.shared.output',['outputAnswerDivHidden' => true, 'questionDivHidden' => true])
+                @include('panelLaravel::laravel.shared.output',['outputAnswerDivHidden' => false, 'questionDivHidden' => true])
             </div>
             <div class="panel panel-body">
-                <button name="submit" id="submit" type="submit" class="btn btn-success" style="" md-ink-ripple="" disabled data-toggle="tooltip" data-placement="top" data-original-title="Adicione uma resposta ou pergunta primeiro">Salvar</button>
+                <button name="submit" id="submit" type="submit" class="btn btn-success" style="" md-ink-ripple=""  data-toggle="tooltip" data-placement="top" data-original-title="Adicione uma resposta ou pergunta primeiro">Salvar</button>
+                {{--disabled--}}
             </div>
         </form>
     </div>

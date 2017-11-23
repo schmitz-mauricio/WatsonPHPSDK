@@ -27,8 +27,8 @@
                 @include('panelLaravel::laravel.shared.intent', ['oIntent' => $oIntent, 'aExamples' => $examplesList])
             </div>
             <div class="panel panel-body">
-                <a href="{{ route( $prefix . 'create', ['action' => 'createchild', 'parent' => $oDialogNode->getDialogNode()])  }}" class="btn btn-success waves-effect"> Adicionar pergunta</a>
-                <br><br>
+                {{--<a href="{{ route( $prefix . 'create', ['action' => 'createchild', 'parent' => $oDialogNode->getDialogNode()])  }}" class="btn btn-success waves-effect"> Adicionar pergunta</a>--}}
+                {{--<br><br>--}}
                 @include('panelLaravel::laravel.shared.output',['questionDivHidden' => true, 'oDialogNode' => $oDialogNode])
             </div>
             <div class="panel panel-body">
